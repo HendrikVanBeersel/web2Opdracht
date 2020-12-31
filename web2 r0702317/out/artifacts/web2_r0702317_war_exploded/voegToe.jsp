@@ -20,21 +20,24 @@
     <h1>wiezen kampioenschap</h1>
     <img src="foto's/amanda-jones-P787-xixGio-unsplash.jpg" alt="foto van kaarten">
     <nav>
-        <a href="index.jsp">index</a>
-        <a href="Overzicht.jsp">Overzicht</a>
+        <a href="Overzicht?command=home">index</a>
+        <a href="Overzicht?command=overview">Overzicht</a>
         <a href="voegToe.jsp">Voeg toe</a>
+        <a href="zoek.jsp">zoek speler</a>
+
     </nav>
 </header>
 <main>
-    <form id="besteling" action="">
+    <h2>Voeg speler toe</h2>
+    <form id="voeg speler toe" action="Overzicht?command=voegToe"method="post">
         <label for="naam">Naam:</label>
-        <input type="text" id="naam" name="naam"><br>
+        <input type="text" id="naam" name="naam">
         <label for="punten">Aantal punten:</label>
-        <input type="number" id="punten" name="punten"><br>
-        <label for="wins">gewonnen</label>
-        <input type="number" id="wins" name="gewonnen"><br>
+        <input type="number" id="punten" name="punten">
+        <label for="gewonnen">gewonnen</label>
+        <input type="number" id="gewonnen" name="gewonnen">
         <label for="land">Land:</label>
-        <input type="text" id="land" name="Land"><br>
+        <input type="text" id="land" name="land">
         <input type="submit" value="Submit">
     </form>
 
