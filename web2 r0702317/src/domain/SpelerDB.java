@@ -18,6 +18,9 @@ public class SpelerDB {
     public ArrayList<Speler> getSpelers() {
         return spelers;
     }
+    public Speler get(int i){
+        return spelers.get(i);
+    }
 
     public void addSpeler(Speler x){
         spelers.add(x);
@@ -55,5 +58,8 @@ public class SpelerDB {
             }
         }
         return null;
+    }
+    public int getSpelersLength(){
+        return spelers.size();
     }
 }

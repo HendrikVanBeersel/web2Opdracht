@@ -7,7 +7,8 @@
   Time: 22:58
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -41,36 +42,48 @@
             </tr>
             </thead>
             <tbody>
-            <%
-                SpelerDB x = (SpelerDB) request.getAttribute("spelers");
-                ArrayList<Speler> spelers = x.getSpelers();
-            %>
-            <%
-                for (Speler speler : spelers) {
-            %>
+            <c:forEach var="speler" items="${spelers}">
             <tr>
-                <td><%= speler.getNaam()%></td>
-                <td><%= speler.getPunten()%></td>
-                <td><%= speler.getGewonnen()%></td>
-                <td><%= speler.getLand()%></td>
+                <td>${speler.naam}</td>
+                <td>${speler.punten}</td>
+                <td>${speler.gewonnen}</td>
+                <td>${speler.land}</td>
                 <td>
-                    <a href="Overzicht?command=deleteBevestiging&naam=<%=speler.getNaam()%>">verwijder</a>
+                    <a href="Overzicht?command=deleteBevestiging&naam=${speler.naam}">verwijder</a>
                 </td>
-
+                <td>
+                    <a href="Overzicht?command=updateBevestiging&naam=${speler.naam}">update</a>
+                </td>
             </tr>
-            <%
-                }
-            %>
-
+            </c:forEach>
             </tbody>
         </table>
-        <%
-            if (request.getAttribute("opmerking")!=null){
-        %>
-        <p><%=request.getAttribute("opmerking")%></p>
-        <%
-            }
-        %>
+        <p>Speler ${winnaar.naam} is aan het winnen met ${winnaar.punten} punten en met ${winnaar.gewonnen} overwinningen. </p>
+        <form id="top spelers" action="Overzicht">
+            <label for="command" hidden>command</label>
+            <input type="text" id="command" name="command" value="topAantalSpelers" hidden>
+            <label for="aantal">top aantal Spelers:</label>
+            <input type="int" id="aantal" name="aantal" value="${requestCookie}">
+            <input type="submit" value="Submit">
+
+        </form>
+        <c:if test="${not empty topAantalSpelers}">
+            <c:forEach var="speler" items="${topAantalSpelers}">
+                <table></table>
+                    <tr>
+                        <td>${speler.naam}</td>
+                        <td>${speler.punten}</td>
+                        <td>${speler.gewonnen}</td>
+                        <td>${speler.land}</td>
+                    </tr>
+                </table>
+            </c:forEach>
+        </c:if>
+
+
+        <c:if test="${not empty opmerking}">
+            <p>${opmerking}</p>
+        </c:if>
     </main>
     <footer>
             <span>Photo by <a

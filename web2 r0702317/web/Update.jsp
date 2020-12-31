@@ -1,18 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
   User: hendr
-  Date: 25/10/2020
-  Time: 15:42
+  Date: 29/11/2020
+  Time: 18:42
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
+<!DOCTYPE html>
+<html lang="nl">
+
 <head>
-    <title>zoek speler</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="general.css">
+    <title>Wedstijdt ranking index</title>
 </head>
+
 <body>
 <header>
     <h1>wiezen kampioenschap</h1>
@@ -26,12 +29,29 @@
     </nav>
 </header>
 <main>
-    <h2>zoek speler</h2>
-    <form id="speler zoeken"action="Overzicht" method="GET">
-        <label for="command" hidden>command</label>
-        <input type="text" id="command" name="command" value="zoeken" hidden>
+    <h2>Update speler</h2>
+    <c:if test="${not empty errors}">
+        <div class="alert alert-danger">
+            <ul>
+                <c:forEach items ="${errors}" var="error">
+                    <li>${error}</li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+
+    <form id="voeg speler toe" action="Overzicht?command=update"method="post">
+        <label for="idnaam"hidden> </label>
+        <input type="text" id="idnaam" name="idnaam" value="${speler.naam}"hidden>
+
         <label for="naam">Naam:</label>
-        <input type="text" id="naam" name="naam">
+        <input type="text" id="naam" name="naam" value="${speler.naam}" required>
+        <label for="punten">Aantal punten:</label>
+        <input type="number" id="punten" name="punten" value="${speler.punten}" required>
+        <label for="gewonnen">gewonnen</label>
+        <input type="number" id="gewonnen" name="gewonnen" value="${speler.gewonnen}" required>
+        <label for="land">Land:</label>
+        <input type="text" id="land" name="land" value="${speler.land}" required>
         <input type="submit" value="Submit">
     </form>
 
@@ -44,4 +64,5 @@
 </footer>
 
 </body>
+
 </html>

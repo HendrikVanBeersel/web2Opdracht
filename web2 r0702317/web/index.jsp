@@ -5,7 +5,8 @@
   Time: 22:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -30,15 +31,6 @@
     <h2>Wedstrijd overzicht</h2>
     <p>Hier is het overzicht van de komende wedstrijdt. elke deelnemer heeft een naam, aantal punten en wins. Land
       van herkomst is optioneel. Dit overzicht dient alleen om de tussenstanden te zien en of bij te werken.</p>
-    <%
-      Speler winnaar = (Speler) request.getAttribute("winnaar");
-      if (winnaar !=null){
-    %>
-
-    <p>Speler <%=winnaar.getNaam()%> is aan het winnen met <%=winnaar.getPunten()%> punten en met <%=winnaar.getGewonnen()%> overwinningen. </p>
-    <%
-      }
-    %>
   </main>
   <footer>
           <span>Photo by <a

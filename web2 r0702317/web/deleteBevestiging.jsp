@@ -28,8 +28,8 @@
     </header>
     <main>
         <h2>bevestiging</h2>
-        <p>weet u zeker dat u <%=request.getParameter("naam")%> wilt verwijderen</p>
-        <form action="Overzicht?command=delete&naam=<%=request.getParameter("naam")%>" method="post">
+        <p>weet u zeker dat u ${param.naam} wilt verwijderen</p>
+        <form action="Overzicht?command=delete&naam=${param.naam}" method="post">
             <input class="delete" type="submit" name="bevestigen" value="bevestigen">
             <input class="delete" type="button" name="annuleer" value="annuleer" onclick="window.location.href='Overzicht?command=overview';">
         </form>

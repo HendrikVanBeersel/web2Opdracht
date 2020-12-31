@@ -5,7 +5,8 @@
   Time: 15:04
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -27,8 +28,7 @@
     </header>
     <main>
         <h2>gevonden!</h2>
-        <% Speler speler = (Speler) request.getAttribute("speler");%>
-        <p>speler <%=speler.getNaam()%> heeft <%=speler.getPunten()%> punten.</p>
+        <p>speler ${speler.naam} heeft ${speler.punten} punten.</p>
     </main>
 </body>
 </html>

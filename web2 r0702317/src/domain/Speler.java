@@ -11,22 +11,27 @@ public class Speler {
         setGewonnen(gewonnen);
         setLand(land);
     }
+    public Speler(){}
 
-    private void setGewonnen(int gewonnen) {
+    public void setPunten(int punten) {
+        this.punten = punten;
+    }
+
+    public void setGewonnen(int gewonnen) {
         if(gewonnen>=0){
             this.gewonnen = gewonnen;
         }
         else throw new IllegalArgumentException("gewonnen kan niet onder 0");
     }
 
-    private void setNaam(String naam) {
+    public void setNaam(String naam) {
         if(isValidString(naam)){
             this.naam = naam;
         }
         else throw new IllegalArgumentException("geen naam ingevuld");
     }
 
-    private void setLand(String land) {
+    public void setLand(String land) {
         if(isValidString(land)){
             this.land = land;
         }
