@@ -20,15 +20,7 @@
 
 <body>
     <header>
-        <h1>wiezen kampioenschap</h1>
-        <img src="foto's/amanda-jones-P787-xixGio-unsplash.jpg" alt="foto van kaarten">
-        <nav>
-            <a href="Overzicht?command=home">index</a>
-            <a href="Overzicht?command=overview">Overzicht</a>
-            <a href="voegToe.jsp">Voeg toe</a>
-            <a href="zoek.jsp">zoek speler</a>
-
-        </nav>
+        <jsp:include page="Header.jsp"/>
     </header>
     <main>
         <h2>Het overzicht</h2>
@@ -63,22 +55,24 @@
             <label for="command" hidden>command</label>
             <input type="text" id="command" name="command" value="topAantalSpelers" hidden>
             <label for="aantal">top aantal Spelers:</label>
-            <input type="int" id="aantal" name="aantal" value="${requestCookie}">
+            <input type="int" id="aantal" name="aantal" value="${aantal}">
             <input type="submit" value="Submit">
 
         </form>
+        <table>
+
         <c:if test="${not empty topAantalSpelers}">
-            <c:forEach var="speler" items="${topAantalSpelers}">
-                <table></table>
+            <c:forEach items="${topAantalSpelers}" var="top" >
                     <tr>
-                        <td>${speler.naam}</td>
-                        <td>${speler.punten}</td>
-                        <td>${speler.gewonnen}</td>
-                        <td>${speler.land}</td>
+                        <td>${top.naam}</td>
+                        <td>${top.punten}</td>
+                        <td>${top.gewonnen}</td>
+                        <td>${top.land}</td>
                     </tr>
-                </table>
             </c:forEach>
         </c:if>
+        </table>
+
 
 
         <c:if test="${not empty opmerking}">
@@ -86,10 +80,7 @@
         </c:if>
     </main>
     <footer>
-            <span>Photo by <a
-                    href="https://unsplash.com/@amandagraphc?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Amanda
-                    Jones</a> on <a
-                    href="https://unsplash.com/@amandagraphc?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+        <jsp:include page="footer.jsp"/>
     </footer>
 </body>
 

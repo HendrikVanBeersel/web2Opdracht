@@ -12,6 +12,19 @@ body{
     
 
 }
+p{
+    padding-left: 15px;
+}
+table{
+    padding-left: 15px;
+}
+form{
+    padding-left: 15px;
+}
+span{
+    padding-left: 15px;
+}
+
 /*de header over alle pagina's*/
 header{
     display: flex;
@@ -36,6 +49,14 @@ nav{
     font-size: large;
 
 }
+a{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#huidige {
+    background: #303030;
+}
+
 nav a:link, nav a:visited{
     text-decoration: none ;
 }
@@ -48,6 +69,8 @@ a:hover{
 a:active{
     color: green;
 }
+
+
 /*main design voor alle pagina's*/
 main{
     border: 2px solid black;
@@ -107,6 +130,7 @@ footer{
     margin: 15px;
     margin-top: 40px;
     margin-bottom: 40px;
+    padding-top: 10px;
 }
 address{
     margin-left: 15px;

@@ -18,15 +18,7 @@
 
 <body>
 <header>
-    <h1>wiezen kampioenschap</h1>
-    <img src="foto's/amanda-jones-P787-xixGio-unsplash.jpg" alt="foto van kaarten">
-    <nav>
-        <a href="Overzicht?command=home">index</a>
-        <a href="Overzicht?command=overview">Overzicht</a>
-        <a href="voegToe.jsp">Voeg toe</a>
-        <a href="zoek.jsp">zoek speler</a>
-
-    </nav>
+    <jsp:include page="Header.jsp"/>
 </header>
 <main>
     <h2>Voeg speler toe</h2>
@@ -50,15 +42,12 @@
         <input type="number" id="gewonnen" name="gewonnen">
         <label for="land">Land:</label>
         <input type="text" id="land" name="land">
-        <input type="submit" value="Submit">
+        <input id="submit" type="submit" value="Submit">
     </form>
 
 </main>
 <footer>
-            <span>Photo by <a
-                    href="https://unsplash.com/@amandagraphc?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Amanda
-                    Jones</a> on <a
-                    href="https://unsplash.com/@amandagraphc?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+    <jsp:include page="footer.jsp"/>
 </footer>
 
 </body>

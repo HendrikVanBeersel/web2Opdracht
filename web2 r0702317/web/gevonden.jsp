@@ -11,24 +11,20 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="general.css">
-    <title>Wedstijdt ranking index</title>
+    <title>Wedstijdt gevonden speler</title>
 </head>
 
 <body>
     <header>
-        <h1>wiezen kampioenschap</h1>
-        <img src="foto's/amanda-jones-P787-xixGio-unsplash.jpg" alt="foto van kaarten">
-        <nav>
-            <a href="Overzicht?command=home">index</a>
-            <a href="Overzicht?command=overview">Overzicht</a>
-            <a href="voegToe.jsp">Voeg toe</a>
-            <a href="zoek.jsp">zoek speler</a>
-
-        </nav>
+        <jsp:include page="Header.jsp"/>
     </header>
     <main>
         <h2>gevonden!</h2>
         <p>speler ${speler.naam} heeft ${speler.punten} punten.</p>
     </main>
+    <footer>
+        <jsp:include page="footer.jsp"/>
+
+    </footer>
 </body>
 </html>

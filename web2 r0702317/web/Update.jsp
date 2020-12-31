@@ -18,15 +18,7 @@
 
 <body>
 <header>
-    <h1>wiezen kampioenschap</h1>
-    <img src="foto's/amanda-jones-P787-xixGio-unsplash.jpg" alt="foto van kaarten">
-    <nav>
-        <a href="Overzicht?command=home">index</a>
-        <a href="Overzicht?command=overview">Overzicht</a>
-        <a href="voegToe.jsp">Voeg toe</a>
-        <a href="zoek.jsp">zoek speler</a>
-
-    </nav>
+    <jsp:include page="Header.jsp"/>
 </header>
 <main>
     <h2>Update speler</h2>
@@ -40,7 +32,7 @@
         </div>
     </c:if>
 
-    <form id="voeg speler toe" action="Overzicht?command=update"method="post">
+    <form id="speler aanpassen" action="Overzicht?command=update"method="post">
         <label for="idnaam"hidden> </label>
         <input type="text" id="idnaam" name="idnaam" value="${speler.naam}"hidden>
 
@@ -57,10 +49,7 @@
 
 </main>
 <footer>
-            <span>Photo by <a
-                    href="https://unsplash.com/@amandagraphc?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Amanda
-                    Jones</a> on <a
-                    href="https://unsplash.com/@amandagraphc?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+    <jsp:include page="footer.jsp"/>
 </footer>
 
 </body>

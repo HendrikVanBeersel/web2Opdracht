@@ -6,10 +6,7 @@ import domain.SpelerDB;
 import javax.print.DocFlavor;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,6 +27,9 @@ public class OverzichtServlet extends HttpServlet {
         if (request.getParameter("command")!=null){
             command=request.getParameter("command");
         }
+        if (request.getSession() == null){
+
+        }
         String destination;
         switch (command){
             case "home" :
@@ -37,6 +37,9 @@ public class OverzichtServlet extends HttpServlet {
                 break;
             case "overview" :
                 destination = overview(request,response);
+                break;
+            case "voegToePagina":
+                destination = "voegToe.jsp";
                 break;
             case "voegToe":
                 destination = voegToe(request,response);
@@ -46,6 +49,9 @@ public class OverzichtServlet extends HttpServlet {
                 break;
             case "delete":
                 destination = delete(request,response);
+                break;
+            case "zoekPagina":
+                destination="zoek.jsp";
                 break;
             case "zoeken":
                 destination = zoek(request,response);
@@ -58,11 +64,16 @@ public class OverzichtServlet extends HttpServlet {
                 break;
             case "topAantalSpelers":
                 destination=topaantalSpelers(request,response);
+                command="overview";
+                break;
+            case "logboekPagina":
+                destination="logboek.jsp";
                 break;
             default:
                 destination = "index.jsp";
 
         }
+        request.setAttribute(command,"huidige");
         request.getRequestDispatcher(destination).forward(request, response);
 
     }
@@ -92,32 +103,66 @@ public class OverzichtServlet extends HttpServlet {
             z=0;
 
         }
+        request.setAttribute("aantal", aantal);
         request.setAttribute("topAantalSpelers", lijst);
-        return overview(request,response);
+        request.setAttribute("spelers", spelers.getSpelers());
+        return "Overzicht.jsp";
 
     }
 
     private String update(HttpServletRequest request, HttpServletResponse response) {
+
         ArrayList<String> errors = new ArrayList<String>();
         String naam = request.getParameter("idnaam");
         Speler speler = spelers.zoekSpeler(naam);
-        setNaam(speler,request,errors);
-        setPunten(speler,request,errors);
-        setGewonnen(speler,request,errors);
-        setLand(speler,request,errors);
+        //nodig voor de verandering te zien in de punten
+        int vorigePunten = speler.getPunten();
+        setSpeler(speler, request, errors);
         if(errors.size()==0){
+            logboekHandler("u",speler,vorigePunten,request,response);
             try {
                 return overview(request, response);
             } catch (IllegalArgumentException exc) {
                 errors.add(exc.getMessage());
             }
         }
-
+        request.setAttribute("speler",speler);
         request.setAttribute("errors",errors);
         return "Update.jsp";
 
 
 
+    }
+
+    private void logboekHandler(String code, Speler speler, int vorigePunten, HttpServletRequest request, HttpServletResponse response) {
+        ArrayList<ArrayList<String>> logboek = getSession(request, response);
+        ArrayList<String> event = new ArrayList<>();
+        event.add(code);
+        event.add(speler.getNaam());
+        //huidige punten
+        event.add(String.valueOf(speler.getPunten()));
+        //verandering in punten
+        event.add(String.valueOf(speler.getPunten()-vorigePunten));
+        logboek.add(event);
+        request.getSession().setAttribute("logboek",logboek);
+
+    }
+
+    private void setSpeler(Speler speler, HttpServletRequest request, ArrayList<String> errors) {
+        setNaam(speler,request,errors);
+        setPunten(speler,request,errors);
+        setGewonnen(speler,request,errors);
+        setLand(speler,request,errors);
+    }
+
+    private ArrayList<ArrayList<String>> getSession(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("logboek")!=null){
+            return (ArrayList<ArrayList<String>>) session.getAttribute("logboek");
+        }
+
+        ArrayList<ArrayList<String>> logboek = new ArrayList<ArrayList<String>>();
+        return logboek;
     }
 
     private String updateBevestiging(HttpServletRequest request, HttpServletResponse response) {
@@ -150,14 +195,12 @@ public class OverzichtServlet extends HttpServlet {
 
     private String voegToe(HttpServletRequest request, HttpServletResponse response) {
         ArrayList<String> errors = new ArrayList<String>();
-
+        int vorigePunten = 0;
         Speler speler = new Speler();
-        setNaam(speler,request,errors);
-        setPunten(speler,request,errors);
-        setGewonnen(speler,request,errors);
-        setLand(speler,request,errors);
+        setSpeler(speler,request,errors);
         if(errors.size()==0){
             try {
+                logboekHandler("vt",speler,vorigePunten,request,response);
                 spelers.addSpeler(speler);
                 return overview(request, response);
             } catch (IllegalArgumentException exc) {
@@ -232,7 +275,7 @@ public class OverzichtServlet extends HttpServlet {
     private String overview(HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = getAantalCookie(request);
         if (!(cookie ==null)) {
-            request.setAttribute("requestCookie", cookie.getValue());
+            request.setAttribute("aantal", cookie.getValue());
         }
 
             request.setAttribute("winnaar",spelers.winnendeSpeler());
